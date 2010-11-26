@@ -94,6 +94,9 @@ module Mongoid # :nodoc:
       end
 
       referenced_in :parent, :class_name => self.name, :inverse_of => :children, :index => true
+      def parent_id=(pid)
+        self[:parent_id] = (pid == "" ? nil : pid)
+      end
 
       field :parent_ids, :type => Array, :default => []
       index :parent_ids

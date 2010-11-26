@@ -89,6 +89,13 @@ describe Mongoid::Tree do
       c.save
       node(:subchild).parent_ids.should == [node(:child).id]
     end
+    
+    it "should rebuild its children's parent_ids when its own parent_id is set to empty string" do
+      c = node(:child)
+      c.parent_id = ""
+      c.save
+      node(:subchild).parent_ids.should == [node(:child).id]
+    end
 
     it "should not rebuild its children's parent_ids when it's not required" do
       root = node(:root)
